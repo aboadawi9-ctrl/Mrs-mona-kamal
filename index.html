@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ms. Mona Kamal | منصة اللغة الإنجليزية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --main: #6c5ce7; --dark: #4834d4; --bg: #fdfdfd; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Cairo', sans-serif; background: var(--bg); color: #333; overflow-x: hidden; }
+
+        /* الهيدر مع اسمك كشعار أساسي */
+        header { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.03); position: sticky; top: 0; z-index: 1000; }
+        .logo-text { font-weight: 900; color: var(--main); font-size: 1.6rem; letter-spacing: 1px; }
+        .login-btn { border: 2px solid var(--main); color: var(--main); padding: 8px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: 0.3s; }
+        .login-btn:hover { background: var(--main); color: #fff; }
+
+        /* قسم الترحيب المطور مع صورتك الشخصية */
+        .hero { background: linear-gradient(135deg, var(--main), var(--dark)); color: white; padding: 80px 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; border-radius: 0 0 50px 50px; }
+        .hero-content { flex: 1; min-width: 300px; padding-left: 20px; }
+        .hero-content h1 { font-size: 2.8rem; font-weight: 900; line-height: 1.3; margin-bottom: 20px; }
+        .hero-image { flex: 0 0 350px; text-align: center; position: relative; }
+        
+        /* تصميم الصورة الشخصية الدائري */
+        .hero-image img { 
+            width: 320px; 
+            height: 320px; 
+            border-radius: 50%; 
+            border: 12px solid rgba(255,255,255,0.2); 
+            object-fit: cover; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2); 
+        }
+
+        /* البطاقات والمميزات */
+        .features { padding: 80px 5%; text-align: center; }
+        .section-title { font-size: 2.2rem; font-weight: 900; margin-bottom: 50px; color: #222; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .feat-card { background: var(--main); color: #fff; padding: 40px 20px; border-radius: 20px; position: relative; transition: 0.3s; }
+        .feat-card span { position: absolute; top: 15px; left: 20px; font-size: 3rem; font-weight: 900; opacity: 0.2; }
+        .feat-card h3 { font-size: 1.5rem; font-weight: 900; }
+
+        /* قسم الكورسات */
+        .courses { padding: 50px 5%; background: #f8f9fa; }
+        .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .course-card { background: #fff; border-radius: 25px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .course-info { padding: 25px; text-align: center; }
+        .start-btn { display: block; background: var(--main); color: #fff; padding: 12px; border-radius: 15px; text-decoration: none; font-weight: bold; }
+
+        @media (max-width: 992px) {
+            .hero { text-align: center; justify-content: center; }
+            .hero-content { order: 2; padding-left: 0; margin-top: 30px; }
+            .hero-image { order: 1; flex: 0 0 100%; }
+            .hero-image img { width: 250px; height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-text">MS. MONA KAMAL</div>
+        <a href="#" class="login-btn">تسجيل الدخول</a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>منصتك الأولى لتعلم <br> وفهم الإنجليزية بأسلوب <br> Ms. Mona Kamal</h1>
+            <p>أهلاً بك في بيتك الثاني! هنا هتلاقي كل اللي تحتاجه علشان تتفوق في الإنجليزية وتفهمها صح وتطبقها بسهولة.</p>
+            <br>
+            <a href="#courses" style="background: #fff; color: var(--main); padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 900; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">اشترك دلوقتي !</a>
+        </div>
+        
+        <div class="hero-image">
+            <img src="Mona.jpg" alt="Ms. Mona Kamal">
+        </div>
+    </section>
+
+    <section class="features">
+        <h2 class="section-title">ليه تشترك معانا؟</h2>
+        <div class="features-grid">
+            <div class="feat-card"><span>1</span><h3>شرح بسيط ومفهوم</h3></div>
+            <div class="feat-card"><span>2</span><h3>فيديوهات توضيحية</h3></div>
+            <div class="feat-card"><span>3</span><h3>تمارين تفاعلية</h3></div>
+            <div class="feat-card"><span>4</span><h3>مرونة في المذاكرة</h3></div>
+            <div class="feat-card"><span>5</span><h3>اختبارات مستمرة</h3></div>
+            <div class="feat-card"><span>6</span><h3>محتوى منظم</h3></div>
+        </div>
+    </section>
+
+    <section class="courses" id="courses">
+        <h2 class="section-title">كورساتنا التعليمية</h2>
+        <div class="course-grid" id="coursesGrid"></div>
+    </section>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA8KQAQgu4nIiomoDpoTLnBz_uAtab63sY",
+            authDomain: "monaacademy-cd983.firebaseapp.com",
+            databaseURL: "https://monaacademy-cd983-default-rtdb.firebaseio.com",
+            projectId: "monaacademy-cd983",
+            storageBucket: "monaacademy-cd983.firebasestorage.app",
+            messagingSenderId: "410646694761",
+            appId: "1:410646694761:web:bea49c51d3b0ff5eb9cbf8"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        onValue(ref(db, 'courses'), (snap) => {
+            const grid = document.getElementById('coursesGrid');
+            grid.innerHTML = "";
+            snap.forEach(child => {
+                const c = child.val();
+                grid.innerHTML += `
+                    <div class="course-card">
+                        <div class="course-info">
+                            <h3>${c.title}</h3>
+                            <p>${c.desc}</p>
+                            <a href="${c.link}" class="start-btn" target="_blank">ابدأ الآن</a>
+                        </div>
+                    </div>`;
+            });
+        });
+    </script>
+</body>
+</html>
