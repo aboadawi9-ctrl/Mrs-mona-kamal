@@ -5,51 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ms. Mona Kamal | منصة اللغة الإنجليزية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --main: #6c5ce7; --dark: #4834d4; --bg: #fdfdfd; }
+        :root { --main: #6c5ce7; --dark: #4834d4; --bg: #fdfdfd; --whatsapp: #25d366; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Cairo', sans-serif; background: var(--bg); color: #333; overflow-x: hidden; }
 
-        /* الهيدر مع اسمك كشعار أساسي */
+        /* الهيدر */
         header { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.03); position: sticky; top: 0; z-index: 1000; }
         .logo-text { font-weight: 900; color: var(--main); font-size: 1.6rem; letter-spacing: 1px; }
         .login-btn { border: 2px solid var(--main); color: var(--main); padding: 8px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: 0.3s; }
-        .login-btn:hover { background: var(--main); color: #fff; }
 
-        /* قسم الترحيب المطور مع صورتك الشخصية */
+        /* قسم الترحيب والصورة */
         .hero { background: linear-gradient(135deg, var(--main), var(--dark)); color: white; padding: 80px 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; border-radius: 0 0 50px 50px; }
         .hero-content { flex: 1; min-width: 300px; padding-left: 20px; }
         .hero-content h1 { font-size: 2.8rem; font-weight: 900; line-height: 1.3; margin-bottom: 20px; }
-        .hero-image { flex: 0 0 350px; text-align: center; position: relative; }
-        
-        /* تصميم الصورة الشخصية الدائري */
-        .hero-image img { 
-            width: 320px; 
-            height: 320px; 
-            border-radius: 50%; 
-            border: 12px solid rgba(255,255,255,0.2); 
-            object-fit: cover; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2); 
-        }
+        .hero-image { flex: 0 0 350px; text-align: center; }
+        .hero-image img { width: 320px; height: 320px; border-radius: 50%; border: 12px solid rgba(255,255,255,0.2); object-fit: cover; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
 
-        /* البطاقات والمميزات */
+        /* البطاقات */
         .features { padding: 80px 5%; text-align: center; }
         .section-title { font-size: 2.2rem; font-weight: 900; margin-bottom: 50px; color: #222; }
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .feat-card { background: var(--main); color: #fff; padding: 40px 20px; border-radius: 20px; position: relative; transition: 0.3s; }
+        .feat-card { background: var(--main); color: #fff; padding: 40px 20px; border-radius: 20px; position: relative; }
         .feat-card span { position: absolute; top: 15px; left: 20px; font-size: 3rem; font-weight: 900; opacity: 0.2; }
-        .feat-card h3 { font-size: 1.5rem; font-weight: 900; }
 
-        /* قسم الكورسات */
+        /* الكورسات */
         .courses { padding: 50px 5%; background: #f8f9fa; }
         .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .course-card { background: #fff; border-radius: 25px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .course-info { padding: 25px; text-align: center; }
         .start-btn { display: block; background: var(--main); color: #fff; padding: 12px; border-radius: 15px; text-decoration: none; font-weight: bold; }
 
+        /* التذييل والروابط */
+        footer { padding: 40px 5%; text-align: center; background: #fff; margin-top: 50px; border-top: 1px solid #eee; }
+        .social-links { margin: 15px 0; display: flex; justify-content: center; gap: 20px; }
+        .social-btn { text-decoration: none; font-weight: bold; font-size: 1.1rem; padding: 10px 20px; border-radius: 10px; transition: 0.3s; color: #fff; }
+        .fb { background: #1877f2; }
+        .wa { background: var(--whatsapp); }
+        .secret-link { color: #f9f9f9; text-decoration: none; font-size: 0.4rem; cursor: default; display: inline-block; margin-top: 20px; }
+
         @media (max-width: 992px) {
             .hero { text-align: center; justify-content: center; }
-            .hero-content { order: 2; padding-left: 0; margin-top: 30px; }
+            .hero-content { order: 2; margin-top: 30px; }
             .hero-image { order: 1; flex: 0 0 100%; }
             .hero-image img { width: 250px; height: 250px; }
         }
@@ -64,12 +62,11 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>منصتك الأولى لتعلم <br> وفهم الإنجليزية بأسلوب <br> Ms. Mona Kamal</h1>
-            <p>أهلاً بك في بيتك الثاني! هنا هتلاقي كل اللي تحتاجه علشان تتفوق في الإنجليزية وتفهمها صح وتطبقها بسهولة.</p>
+            <h1>منصتك الأولى لتعلم وفهم الإنجليزية بأسلوب <br> Ms. Mona Kamal</h1>
+            <p>أهلاً بك في بيتك الثاني! هنا ستجد كل ما تحتاجه لتتفوق في اللغة الإنجليزية بأسلوب مبسط ومنظم.</p>
             <br>
-            <a href="#courses" style="background: #fff; color: var(--main); padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 900; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">اشترك دلوقتي !</a>
+            <a href="#courses" style="background: #fff; color: var(--main); padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 900; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">اشترك الآن !</a>
         </div>
-        
         <div class="hero-image">
             <img src="Mona.jpg" alt="Ms. Mona Kamal">
         </div>
@@ -91,6 +88,21 @@
         <h2 class="section-title">كورساتنا التعليمية</h2>
         <div class="course-grid" id="coursesGrid"></div>
     </section>
+
+    <footer>
+        <p style="color: #777; margin-bottom: 10px;">جميع الحقوق محفوظة © ٢٠٢٦ <br> <strong>Ms. Mona Kamal</strong></p>
+        
+        <div class="social-links">
+            <a href="https://www.facebook.com/share/1C9MoP8pqj/" class="social-btn fb" target="_blank">
+                <i class="fab fa-facebook-f"></i> فيسبوك
+            </a>
+            <a href="https://wa.me/201018591244" class="social-btn wa" target="_blank">
+                <i class="fab fa-whatsapp"></i> واتساب
+            </a>
+        </div>
+
+        <a href="mx_2026_ctrl_p8.html" class="secret-link">.</a>
+    </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
