@@ -16,7 +16,6 @@
 
         .hero { background: linear-gradient(135deg, var(--main), var(--dark)); color: white; padding: 80px 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; border-radius: 0 0 50px 50px; }
         .hero-content { flex: 1; min-width: 300px; }
-        /* هنا استخدمت اسم الصورة mona.jpg */
         .hero-image img { width: 300px; height: 300px; border-radius: 50%; border: 10px solid rgba(255,255,255,0.2); object-fit: cover; }
 
         .features { padding: 60px 5%; text-align: center; }
@@ -45,10 +44,17 @@
         .add-review-box input, .add-review-box textarea { width: 100%; padding: 12px; margin: 8px 0; border: none; border-radius: 10px; font-family: 'Cairo'; }
 
         footer { padding: 40px 5%; text-align: center; background: #fff; border-top: 1px solid #eee; }
-        .social-btn { text-decoration: none; font-weight: bold; padding: 10px 20px; border-radius: 10px; color: #fff; margin: 5px; display: inline-block; }
-        .fb { background: #1877f2; } .wa { background: var(--whatsapp); }
-        /* النقطة السرية باللون الفاتح جداً */
+        .social-btn { text-decoration: none; font-weight: bold; padding: 10px 20px; border-radius: 10px; color: #fff; margin: 5px; display: inline-block; cursor: pointer; }
+        .fb { background: #1877f2; } 
+        .wa { background: var(--whatsapp); }
         .secret-link { color: #fdfdfd; text-decoration: none; font-size: 0.7rem; }
+
+        /* ستايل نافذة اختيار الأرقام */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 25px; text-align: center; width: 90%; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .modal-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px; margin: 15px 0; border-radius: 15px; text-decoration: none; color: white; font-weight: bold; font-size: 1.2rem; transition: 0.3s; }
+        .modal-btn:hover { opacity: 0.9; transform: scale(1.02); }
+        .modal-btn i { font-size: 1.5rem; }
     </style>
 </head>
 <body>
@@ -97,11 +103,28 @@
         </div>
     </section>
 
+    <div id="waModal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 10px; color: var(--dark);">تواصل مع Ms. Mona</h3>
+            <p style="margin-bottom: 20px; font-size: 0.9rem; color: #666;">اختر الرقم المفضل لديك للتواصل عبر واتساب</p>
+            
+            <a href="https://wa.me/201018591244" class="modal-btn wa" target="_blank">
+                <i class="fab fa-whatsapp"></i> 01018591244
+            </a>
+            
+            <a href="https://wa.me/201128874885" class="modal-btn wa" target="_blank">
+                <i class="fab fa-whatsapp"></i> 01128874885
+            </a>
+            
+            <button onclick="closeWaModal()" style="margin-top: 15px; border: none; background: none; color: #ff7675; cursor: pointer; font-weight: bold; font-family: 'Cairo';">إغلاق القائمة</button>
+        </div>
+    </div>
+
     <footer>
         <p>جميع الحقوق محفوظة © ٢٠٢٦ | <strong>Ms. Mona Kamal</strong></p>
         <div style="margin: 20px 0;">
-            <a href="https://www.facebook.com/share/1C9MoP8pqj/" class="social-btn fb">فيسبوك</a>
-            <a href="https://wa.me/201018591244" class="social-btn wa">واتساب</a>
+            <a href="https://www.facebook.com/share/1C9MoP8pqj/" class="social-btn fb" target="_blank">فيسبوك</a>
+            <div class="social-btn wa" onclick="openWaModal()">واتساب</div>
         </div>
         <a href="mx_2026_ctrl_p8.html" class="secret-link">.</a>
     </footer>
@@ -123,16 +146,14 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
+        window.openWaModal = () => document.getElementById('waModal').style.display = 'flex';
+        window.closeWaModal = () => document.getElementById('waModal').style.display = 'none';
+
         onValue(ref(db, 'folders'), (snap) => {
             const grid = document.getElementById('foldersGrid');
             grid.innerHTML = "";
             snap.forEach(child => {
-                grid.innerHTML += `
-                    <div class="folder-card" onclick="showVideos('${child.key}', '${child.val().name}')">
-                        <i class="fas fa-folder-open"></i>
-                        <h3>${child.val().name}</h3>
-                        <p>مشاهدة الدروس</p>
-                    </div>`;
+                grid.innerHTML += `<div class="folder-card" onclick="showVideos('${child.key}', '${child.val().name}')"><i class="fas fa-folder-open"></i><h3>${child.val().name}</h3><p>مشاهدة الدروس</p></div>`;
             });
         });
 
@@ -144,14 +165,7 @@
                 vGrid.innerHTML = "";
                 snap.forEach(child => {
                     const v = child.val();
-                    vGrid.innerHTML += `
-                        <div class="video-card">
-                            <img src="${v.img}">
-                            <div class="video-info">
-                                <h4>${v.title}</h4>
-                                <a href="${v.link}" target="_blank" class="start-btn">مشاهدة</a>
-                            </div>
-                        </div>`;
+                    vGrid.innerHTML += `<div class="video-card"><img src="${v.img}"><div class="video-info"><h4>${v.title}</h4><a href="${v.link}" target="_blank" class="start-btn">مشاهدة</a></div></div>`;
                 });
             });
         };
@@ -170,7 +184,7 @@
             const student = document.getElementById('stuName').value;
             const text = document.getElementById('stuText').value;
             if(student && text) {
-                set(push(ref(db, 'reviews')), { student, text }).then(() => { alert("تم!"); location.reload(); });
+                set(push(ref(db, 'reviews')), { student, text }).then(() => { alert("تم الإرسال! ❤️"); location.reload(); });
             }
         };
     </script>
