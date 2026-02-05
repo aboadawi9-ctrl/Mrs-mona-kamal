@@ -2,45 +2,34 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>لوحة التحكم | Ms. Mona Kamal</title>
+    <title>لوحة تحكم Ms. Mona</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Cairo', sans-serif; background: #f4f7f6; padding: 20px; text-align: center; }
-        .container { max-width: 500px; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin: 20px auto; }
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo'; }
-        button { background: #6c5ce7; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
+        body { font-family: 'Cairo', sans-serif; background: #f4f4f9; padding: 20px; text-align: center; }
+        .card { background: white; padding: 30px; border-radius: 15px; max-width: 500px; margin: 20px auto; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; }
+        button { background: #6c5ce7; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; }
         button:hover { background: #4834d4; }
-        .back-home { color: #6c5ce7; text-decoration: none; font-weight: bold; display: block; margin-bottom: 10px; }
-        #main-content { display: none; }
-        .status-msg { margin-top: 15px; font-weight: bold; }
+        .back-link { display: block; margin-bottom: 20px; color: #6c5ce7; text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <a href="index.html" class="back-home">← العودة للموقع الأساسي</a>
+    <a href="index.html" class="back-link">← العودة للموقع الأساسي</a>
 
-    <div class="container" id="auth-section">
-        <h2>تسجيل دخول الإدارة</h2>
-        <input type="password" id="login-pass" placeholder="أدخل كلمة المرور">
-        <button onclick="checkAuth()">دخول</button>
+    <div class="card">
+        <h2>إضافة كورس جديد</h2>
+        <input type="text" id="title" placeholder="اسم الكورس">
+        <textarea id="desc" rows="3" placeholder="وصف قصير"></textarea>
+        <input type="text" id="link" placeholder="رابط الكورس">
+        <button onclick="addCourse()">إضافة الكورس للموقع</button>
     </div>
 
-    <div id="main-content">
-        <div class="container">
-            <h3>إضافة كورس جديد</h3>
-            <input type="text" id="title" placeholder="عنوان الكورس">
-            <textarea id="desc" placeholder="وصف الكورس"></textarea>
-            <input type="text" id="link" placeholder="رابط الكورس">
-            <button id="addCourseBtn">إضافة الكورس للموقع</button>
-        </div>
-
-        <div class="container">
-            <h3>إضافة رأي طالب (يدوياً)</h3>
-            <input type="text" id="studentName" placeholder="اسم الطالب">
-            <textarea id="studentReview" placeholder="رأي الطالب"></textarea>
-            <button id="addReviewBtn">حفظ الرأي</button>
-        </div>
-        <p id="status" class="status-msg"></p>
+    <div class="card">
+        <h2>إضافة رأي طالب (يدوياً)</h2>
+        <input type="text" id="studentName" placeholder="اسم الطالب/الطالبة">
+        <textarea id="studentText" rows="3" placeholder="رأي الطالب"></textarea>
+        <button onclick="addReview()">حفظ الرأي</button>
     </div>
 
     <script type="module">
@@ -60,45 +49,29 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        window.checkAuth = () => {
-            if(document.getElementById('login-pass').value === 'Mona@2026') {
-                document.getElementById('auth-section').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-            } else { alert('كلمة المرور خاطئة!'); }
+        window.addCourse = function() {
+            const title = document.getElementById('title').value;
+            const desc = document.getElementById('desc').value;
+            const link = document.getElementById('link').value;
+
+            if(title && desc && link) {
+                const newRef = push(ref(db, 'courses'));
+                set(newRef, { title, desc, link })
+                .then(() => { alert("✅ تم إضافة الكورس بنجاح!"); location.reload(); })
+                .catch(() => { alert("❌ فشل الحفظ: تأكدي من الإنترنت"); });
+            } else { alert("يرجى ملء جميع الخانات"); }
         };
 
-        const status = document.getElementById('status');
+        window.addReview = function() {
+            const student = document.getElementById('studentName').value;
+            const text = document.getElementById('studentText').value;
 
-        // إضافة كورس
-        document.getElementById('addCourseBtn').onclick = () => {
-            const coursesRef = ref(db, 'courses');
-            const newRef = push(coursesRef);
-            set(newRef, {
-                title: document.getElementById('title').value,
-                desc: document.getElementById('desc').value,
-                link: document.getElementById('link').value,
-                admin_key: 'Mona2026' // هذا السطر هو مفتاح الحل
-            }).then(() => {
-                status.style.color = "green";
-                status.innerText = "✅ تمت إضافة الكورس بنجاح!";
-                document.getElementById('title').value = ''; document.getElementById('desc').value = ''; document.getElementById('link').value = '';
-            }).catch(() => {
-                status.style.color = "red";
-                status.innerText = "❌ فشل الحفظ: تأكدي من الاتصال";
-            });
-        };
-
-        // إضافة رأي
-        document.getElementById('addReviewBtn').onclick = () => {
-            set(push(ref(db, 'reviews')), {
-                student: document.getElementById('studentName').value,
-                text: document.getElementById('studentReview').value,
-                admin_key: 'Mona2026'
-            }).then(() => {
-                status.style.color = "green";
-                status.innerText = "✅ تم حفظ رأي الطالب!";
-                document.getElementById('studentName').value = ''; document.getElementById('studentReview').value = '';
-            });
+            if(student && text) {
+                const newRef = push(ref(db, 'reviews'));
+                set(newRef, { student, text })
+                .then(() => { alert("✅ تم حفظ الرأي بنجاح!"); location.reload(); })
+                .catch(() => { alert("❌ فشل الحفظ"); });
+            } else { alert("يرجى ملء الخانات"); }
         };
     </script>
 </body>
