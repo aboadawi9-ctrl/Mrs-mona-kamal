@@ -2,16 +2,16 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>لوحة تحكم Ms. Mona - التحكم الكامل</title>
+    <title>لوحة تحكم Ms. Mona - نظام المجلدات</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Cairo', sans-serif; background: #f4f4f9; padding: 20px; text-align: center; color: #333; }
-        .card { background: white; padding: 25px; border-radius: 15px; max-width: 600px; margin: 20px auto; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo'; }
-        button { background: #6c5ce7; color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; }
-        button.delete-btn { background: #ff7675; width: auto; padding: 5px 15px; font-size: 0.8rem; }
-        .list-item { background: #f9f9f9; padding: 15px; border-bottom: 1px solid #eee; margin-top: 10px; text-align: right; display: flex; justify-content: space-between; align-items: center; border-radius: 8px; }
-        h2 { color: #4834d4; border-bottom: 2px solid #6c5ce7; padding-bottom: 10px; }
+        .card { background: white; padding: 25px; border-radius: 15px; max-width: 650px; margin: 20px auto; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        input, textarea, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo'; }
+        button { background: #6c5ce7; color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+        .list-item { background: #f9f9f9; padding: 10px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; border-radius: 8px; margin-top: 5px; }
+        .delete-btn { background: #ff7675; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
+        h2 { color: #4834d4; border-bottom: 2px solid #6c5ce7; padding-bottom: 10px; margin-bottom: 20px; }
         .back-link { display: block; margin-bottom: 20px; color: #6c5ce7; text-decoration: none; font-weight: bold; }
     </style>
 </head>
@@ -20,19 +20,22 @@
     <a href="index.html" class="back-link">← العودة للموقع الرئيسي</a>
 
     <div class="card">
-        <h2>إضافة كورس جديد بالصورة</h2>
-        <input type="text" id="title" placeholder="اسم الكورس">
-        <textarea id="desc" rows="2" placeholder="وصف الكورس"></textarea>
-        <input type="text" id="link" placeholder="رابط الكورس (YouTube أو Telegram)">
-        <input type="text" id="imgUrl" placeholder="رابط صورة الكورس (من Pinterest أو ImgBB)">
-        <button onclick="addCourse()">إضافة الكورس للموقع</button>
-        
-        <h3 style="margin-top:30px;">إدارة الكورسات الحالية</h3>
-        <div id="adminCoursesList"></div>
+        <h2>1. إنشاء كورس جديد (المجلد)</h2>
+        <input type="text" id="courseName" placeholder="مثلاً: كورس القواعد 2026">
+        <button onclick="createNewCourse()">إنشاء الكورس</button>
+        <div id="coursesListAdmin" style="margin-top: 15px;"></div>
     </div>
 
     <div class="card">
-        <h2>إدارة آراء الطلاب</h2>
+        <h2>2. إضافة فيديوهات داخل الكورس</h2>
+        <select id="targetCourseSelect"><option value="">اختر الكورس أولاً...</option></select>
+        <input type="text" id="videoTitle" placeholder="عنوان الفيديو (مثلاً: الدرس الأول)">
+        <input type="text" id="videoLink" placeholder="ضع رابط اليوتيوب هنا">
+        <button onclick="addVideoToCourse()">إضافة الفيديو للكورس المختار</button>
+    </div>
+
+    <div class="card">
+        <h2>3. إدارة آراء الطلاب</h2>
         <div id="adminReviewsList"></div>
     </div>
 
@@ -53,49 +56,64 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        window.addCourse = function() {
-            const title = document.getElementById('title').value;
-            const desc = document.getElementById('desc').value;
-            const link = document.getElementById('link').value;
-            const img = document.getElementById('imgUrl').value;
-
-            if(title && desc && link && img) {
-                set(push(ref(db, 'courses')), { title, desc, link, img })
-                .then(() => { alert("تمت إضافة الكورس بنجاح!"); location.reload(); });
-            } else { alert("يرجى ملء كل الخانات بما فيها رابط الصورة"); }
+        // إنشاء كورس جديد
+        window.createNewCourse = function() {
+            const name = document.getElementById('courseName').value;
+            if(name) {
+                set(push(ref(db, 'folders')), { name }).then(() => {
+                    alert("تم إنشاء الكورس بنجاح");
+                    document.getElementById('courseName').value = "";
+                });
+            }
         };
 
-        onValue(ref(db, 'courses'), (snap) => {
-            const list = document.getElementById('adminCoursesList');
+        // تحديث القوائم
+        onValue(ref(db, 'folders'), (snap) => {
+            const select = document.getElementById('targetCourseSelect');
+            const list = document.getElementById('coursesListAdmin');
+            select.innerHTML = '<option value="">اختر الكورس...</option>';
             list.innerHTML = "";
             snap.forEach(child => {
-                const c = child.val();
-                list.innerHTML += `
-                    <div class="list-item">
-                        <span>${c.title}</span>
-                        <button class="delete-btn" onclick="deleteItem('courses/${child.key}')">حذف</button>
-                    </div>`;
+                const data = child.val();
+                select.innerHTML += `<option value="${child.key}">${data.name}</option>`;
+                list.innerHTML += `<div class="list-item"><span>${data.name}</span><button class="delete-btn" onclick="deleteItem('folders/${child.key}')">حذف الكورس</button></div>`;
             });
         });
+
+        // استخراج معرف اليوتيوب
+        function getYoutubeId(url) {
+            const reg = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(reg);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        // إضافة فيديو للكورس
+        window.addVideoToCourse = function() {
+            const folderId = document.getElementById('targetCourseSelect').value;
+            const title = document.getElementById('videoTitle').value;
+            const link = document.getElementById('videoLink').value;
+            const videoId = getYoutubeId(link);
+
+            if(folderId && title && videoId) {
+                const img = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                set(push(ref(db, `folders/${folderId}/videos`)), { title, link, img })
+                .then(() => {
+                    alert("تمت إضافة الفيديو!");
+                    document.getElementById('videoTitle').value = "";
+                    document.getElementById('videoLink').value = "";
+                });
+            } else { alert("يرجى التأكد من ملء البيانات واختيار الكورس"); }
+        };
 
         onValue(ref(db, 'reviews'), (snap) => {
             const list = document.getElementById('adminReviewsList');
             list.innerHTML = "";
             snap.forEach(child => {
-                const r = child.val();
-                list.innerHTML += `
-                    <div class="list-item">
-                        <span><strong>${r.student}:</strong> ${r.text.substring(0,20)}...</span>
-                        <button class="delete-btn" onclick="deleteItem('reviews/${child.key}')">حذف</button>
-                    </div>`;
+                list.innerHTML += `<div class="list-item"><span><strong>${child.val().student}:</strong> ${child.val().text.substring(0,20)}...</span><button class="delete-btn" onclick="deleteItem('reviews/${child.key}')">حذف</button></div>`;
             });
         });
 
-        window.deleteItem = function(path) {
-            if(confirm("هل أنتِ متأكدة من الحذف؟")) {
-                remove(ref(db, path)).then(() => alert("تم الحذف"));
-            }
-        };
+        window.deleteItem = (path) => { if(confirm("هل أنتِ متأكدة؟")) remove(ref(db, path)); };
     </script>
 </body>
 </html>
