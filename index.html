@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ms. Mona Kamal | منصة اللغة الإنجليزية</title>
+    <title>Ms. Mona Kamal | English Academy</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --main: #6c5ce7; --dark: #4834d4; --bg: #fdfdfd; --whatsapp: #25d366; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Cairo', sans-serif; background: var(--bg); color: #333; overflow-x: hidden; }
+        body { font-family: 'Cairo', sans-serif; background: var(--bg); color: #333; overflow-x: hidden; scroll-behavior: smooth; }
 
         header { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.03); position: sticky; top: 0; z-index: 1000; }
         .logo-text { font-weight: 900; color: var(--main); font-size: 1.6rem; }
@@ -18,43 +18,47 @@
         .hero-content { flex: 1; min-width: 300px; }
         .hero-image img { width: 300px; height: 300px; border-radius: 50%; border: 10px solid rgba(255,255,255,0.2); object-fit: cover; }
 
-        .features { padding: 60px 5%; text-align: center; }
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .feat-card { background: var(--main); color: #fff; padding: 40px 20px; border-radius: 20px; position: relative; }
-        .feat-card span { position: absolute; top: 10px; left: 15px; font-size: 3rem; font-weight: 900; opacity: 0.2; }
+        .about-section { padding: 60px 5%; background: #fff; }
+        .about-tag { background: #f0eeff; color: var(--main); padding: 5px 15px; border-radius: 50px; font-weight: bold; }
+        .about-content { margin-top: 30px; text-align: left; direction: ltr; }
+        .about-content h2 { font-size: 2rem; font-weight: 900; color: var(--dark); margin-bottom: 15px; font-family: sans-serif; }
+        .about-content p { line-height: 1.8; color: #555; font-size: 1.1rem; font-family: sans-serif; }
+
+        .features { padding: 80px 5%; background: #fff; text-align: center; }
+        .features h2 { font-size: 2.2rem; margin-bottom: 50px; color: var(--dark); position: relative; display: inline-block; }
+        .features h2::after { content: ''; width: 50%; height: 4px; background: var(--main); position: absolute; bottom: -15px; right: 25%; border-radius: 10px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 20px; }
+        .feat-card { background: #fff; padding: 40px 30px; border-radius: 30px; box-shadow: 0 10px 30px rgba(108, 92, 231, 0.1); border: 1px solid #f0eeff; transition: 0.4s; }
+        .feat-card:hover { transform: translateY(-10px); border-color: var(--main); }
+        .feat-card .num-circle { width: 60px; height: 60px; background: var(--main); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 900; margin: 0 auto 20px; }
 
         .courses { padding: 50px 5%; background: #f8f9fa; }
         .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .folder-card { background: var(--main); color: #fff; padding: 40px 20px; border-radius: 20px; text-align: center; cursor: pointer; transition: 0.3s; }
-        .folder-card:hover { background: var(--dark); }
+        .folder-card { background: #fff; color: var(--main); border: 2px solid var(--main); padding: 30px 20px; border-radius: 20px; text-align: center; }
         .folder-card i { font-size: 3rem; margin-bottom: 15px; }
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-action { flex: 1; padding: 10px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; font-family: 'Cairo'; transition: 0.3s; }
+        .btn-vid { background: var(--main); color: white; }
+        .btn-exam { background: #fdcb6e; color: #333; }
 
-        .video-card { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .video-card img { width: 100%; height: 160px; object-fit: cover; }
-        .video-info { padding: 15px; text-align: center; }
-        .start-btn { display: block; background: var(--main); color: #fff; padding: 10px; border-radius: 10px; text-decoration: none; font-weight: bold; }
-
-        #videoArea { display: none; background: #eee; padding: 30px; border-radius: 25px; margin-top: 30px; }
+        #videoArea, #quizListArea, #quizArea { display: none; background: #fff; padding: 30px; border-radius: 25px; margin-top: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 2px solid #eee; }
+        .exam-item { background: #f0eeff; padding: 15px; border-radius: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .quiz-option { display: block; width: 100%; padding: 15px; margin: 10px 0; border: 2px solid #f0f0f0; border-radius: 15px; cursor: pointer; text-align: right; font-family: 'Cairo'; background: white; }
 
         .reviews { padding: 60px 5%; background: #fff; text-align: center; }
         .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .review-card { background: #f9f9f9; padding: 25px; border-radius: 15px; border-top: 4px solid var(--main); text-align: right; margin-bottom: 10px; }
-        
+        .review-card { background: #f9f9f9; padding: 25px; border-radius: 15px; border-top: 4px solid var(--main); text-align: right; margin-bottom: 15px; }
         .add-review-box { max-width: 600px; margin: 30px auto; background: #f0eeff; padding: 25px; border-radius: 25px; }
         .add-review-box input, .add-review-box textarea { width: 100%; padding: 12px; margin: 8px 0; border: none; border-radius: 10px; font-family: 'Cairo'; }
-
+        
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 25px; text-align: center; width: 90%; max-width: 420px; }
         footer { padding: 40px 5%; text-align: center; background: #fff; border-top: 1px solid #eee; }
         .social-btn { text-decoration: none; font-weight: bold; padding: 10px 20px; border-radius: 10px; color: #fff; margin: 5px; display: inline-block; cursor: pointer; }
-        .fb { background: #1877f2; } 
-        .wa { background: var(--whatsapp); }
-        .secret-link { color: #fdfdfd; text-decoration: none; font-size: 0.7rem; }
-
-        /* ستايل نافذة اختيار الأرقام */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
-        .modal-content { background: white; padding: 30px; border-radius: 25px; text-align: center; width: 90%; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .modal-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px; margin: 15px 0; border-radius: 15px; text-decoration: none; color: white; font-weight: bold; font-size: 1.2rem; transition: 0.3s; }
-        .modal-btn:hover { opacity: 0.9; transform: scale(1.02); }
-        .modal-btn i { font-size: 1.5rem; }
+        .wa { background: var(--whatsapp); } .fb { background: #1877f2; }
+        
+        /* نمط الزر المخفي */
+        .admin-secret-link { display: inline-block; width: 15px; height: 15px; opacity: 0.03; cursor: pointer; vertical-align: middle; margin-right: 8px; }
     </style>
 </head>
 <body>
@@ -63,21 +67,27 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>تعلم الإنجليزية مع  <br> Ms. Mona Kamal</h1>
-            <p>أهلاً بك في بيتك الثاني! هنا تجد كل ما تحتاجه للتفوق بأسلوب مبسط ومنظم.</p><br>
-            <a href="#courses" style="background: #fff; color: var(--main); padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 900;">استعراض الكورسات</a>
+            <h1>Learn English with <br> Ms. Mona Kamal</h1>
+            <p>Welcome to your second home! Everything you need to excel is right here.</p><br>
+            <a href="#courses" style="background: #fff; color: var(--main); padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 900;">View Courses</a>
         </div>
-        <div class="hero-image"><img src="mona.jpg" alt="Ms. Mona"></div>
+        <div class="hero-image"><img src="mona.jpg"></div>
+    </section>
+
+    <section class="about-section">
+        <span class="about-tag">About Me</span>
+        <div class="about-content">
+            <h2>Who is Ms. Mona Kamal?</h2>
+            <p>Ms. Mona Kamal is a professional English language instructor dedicated to making English learning an enjoyable and rewarding experience. With years of expertise, she focuses on simplifying complex grammar, enhancing vocabulary, and building students' confidence to excel in their exams and beyond.</p>
+        </div>
     </section>
 
     <section class="features">
+        <h2>لماذا تشترك معنا؟ ✨</h2>
         <div class="features-grid">
-            <div class="feat-card"><span>1</span><h3>شرح بسيط ومفهوم</h3></div>
-            <div class="feat-card"><span>2</span><h3>فيديوهات توضيحية</h3></div>
-            <div class="feat-card"><span>3</span><h3>تمارين تفاعلية</h3></div>
-            <div class="feat-card"><span>4</span><h3>مرونة في المذاكرة</h3></div>
-            <div class="feat-card"><span>5</span><h3>اختبارات مستمرة</h3></div>
-            <div class="feat-card"><span>6</span><h3>محتوى منظم</h3></div>
+            <div class="feat-card"><div class="num-circle">1</div><h3>شرح مبسط</h3><p>بنحلل كل قاعدة وكل كلمة في المنهج عشان تفهم قبل ما تحفظ بأسلوب ممتع.</p></div>
+            <div class="feat-card"><div class="num-circle">2</div><h3>تكنولوجيا تعليمية</h3><p>فيديوهات بجودة عالية ومنصة سهلة تنظم لك مذاكرتك في مكان واحد.</p></div>
+            <div class="feat-card"><div class="num-circle">3</div><h3>متابعة مستمرة</h3><p>إحنا معاك خطوة بخطوة، فريق الدعم والميس مونا جاهزين للرد على استفساراتك.</p></div>
         </div>
     </section>
 
@@ -86,9 +96,32 @@
         <div id="foldersGrid" class="course-grid"></div>
 
         <div id="videoArea">
-            <button onclick="closeVideos()" style="float:left; background:#ff7675; color:white; border:none; padding:8px 20px; border-radius:10px; cursor:pointer;">إغلاق X</button>
+            <button onclick="closeArea('videoArea')" style="float:left; background:#ff7675; color:white; border:none; padding:8px 20px; border-radius:10px; cursor:pointer;">إغلاق X</button>
             <h3 id="folderTitleName" style="margin-bottom:25px; color:var(--dark);"></h3>
             <div id="videosGrid" class="course-grid"></div>
+        </div>
+
+        <div id="quizListArea">
+            <button onclick="closeArea('quizListArea')" style="float:left; background:#ff7675; color:white; border:none; padding:8px 20px; border-radius:10px; cursor:pointer;">إغلاق X</button>
+            <h3 style="margin-bottom:25px; color:var(--dark);">اختر الاختبار:</h3>
+            <div id="examsList"></div>
+        </div>
+
+        <div id="quizArea">
+            <div id="quizLogin" style="text-align:center;">
+                <h3 id="activeQuizTitle"></h3>
+                <input type="text" id="stuQuizName" placeholder="أدخل اسمك بالكامل" style="width:100%; max-width:400px; padding:15px; margin:20px 0; border-radius:15px; border:1px solid #ddd; font-family:'Cairo';">
+                <br><button onclick="startQuizNow()" style="background:var(--main); color:white; border:none; padding:12px 40px; border-radius:50px; cursor:pointer; font-weight:bold;">ابدأ الآن</button>
+            </div>
+            <div id="quizContent" style="display:none; max-width:600px; margin:0 auto;">
+                <h4 id="qText" style="font-size:1.4rem; margin-bottom:20px;"></h4>
+                <div id="qOptions"></div>
+                <p id="qProgress" style="text-align:center; margin-top:20px; font-weight:bold;"></p>
+            </div>
+            <div id="quizResult" style="display:none; text-align:center;">
+                <h2 id="finalScoreText"></h2>
+                <button onclick="closeArea('quizArea')" style="background:var(--main); color:white; border:none; padding:12px 30px; border-radius:10px; cursor:pointer; margin-top:20px;">العودة</button>
+            </div>
         </div>
     </section>
 
@@ -105,88 +138,109 @@
 
     <div id="waModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin-bottom: 10px; color: var(--dark);">تواصل مع Ms. Mona</h3>
-            <p style="margin-bottom: 20px; font-size: 0.9rem; color: #666;">اختر الرقم المفضل لديك للتواصل عبر واتساب</p>
-            
-            <a href="https://wa.me/201018591244" class="modal-btn wa" target="_blank">
-                <i class="fab fa-whatsapp"></i> 01018591244
-            </a>
-            
-            <a href="https://wa.me/201128874885" class="modal-btn wa" target="_blank">
-                <i class="fab fa-whatsapp"></i> 01128874885
-            </a>
-            
-            <button onclick="closeWaModal()" style="margin-top: 15px; border: none; background: none; color: #ff7675; cursor: pointer; font-weight: bold; font-family: 'Cairo';">إغلاق القائمة</button>
+            <h3 style="margin-bottom: 20px; color: var(--dark);">تواصل مع Ms. Mona</h3>
+            <a href="https://wa.me/201018591244" style="background:#25d366; color:white; display:block; padding:15px; border-radius:15px; text-decoration:none; margin-bottom:10px; font-weight:bold;" target="_blank">01018591244</a>
+            <a href="https://wa.me/201128874885" style="background:#25d366; color:white; display:block; padding:15px; border-radius:15px; text-decoration:none; font-weight:bold;" target="_blank">01128874885</a>
+            <button onclick="closeWaModal()" style="margin-top: 15px; border: none; background: none; color: #ff7675; cursor: pointer; font-family: 'Cairo';">إغلاق</button>
         </div>
     </div>
 
-    <footer>
+    <footer style="position: relative; padding: 40px 20px; text-align: center; background: #fff;">
         <p>جميع الحقوق محفوظة © ٢٠٢٦ | <strong>Ms. Mona Kamal</strong></p>
-        <div style="margin: 20px 0;">
-            <a href="https://www.facebook.com/share/1C9MoP8pqj/" class="social-btn fb" target="_blank">فيسبوك</a>
-            <div class="social-btn wa" onclick="openWaModal()">واتساب</div>
+        
+        <div style="margin-top: 20px; display: flex; justify-content: center; gap: 15px; align-items: center;">
+            <a href="https://www.facebook.com/share/1C9MoP8pqj/" class="social-btn fb" target="_blank" style="text-decoration:none; padding:10px 20px; background:#1877f2; color:white; border-radius:10px;">فيسبوك</a>
+            <div class="social-btn wa" onclick="openWaModal()" style="cursor:pointer; padding:10px 20px; background:#25d366; color:white; border-radius:10px;">واتساب</div>
         </div>
-        <a href="mx_2026_ctrl_p8.html" class="secret-link">.</a>
+
+        <div onclick="window.location.href='mx_2026_ctrl_p8.html'" 
+             style="position: absolute; right: 20px; bottom: 30px; width: 60px; height: 60px; cursor: pointer; opacity: 0.01; background: red;">
+            .
+        </div>
     </footer>
+
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, onValue, push, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getDatabase, ref, onValue, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyA8KQAQgu4nIiomoDpoTLnBz_uAtab63sY",
-            authDomain: "monaacademy-cd983.firebaseapp.com",
             databaseURL: "https://monaacademy-cd983-default-rtdb.firebaseio.com",
             projectId: "monaacademy-cd983",
-            storageBucket: "monaacademy-cd983.firebasestorage.app",
-            messagingSenderId: "410646694761",
             appId: "1:410646694761:web:bea49c51d3b0ff5eb9cbf8"
         };
-
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        window.openWaModal = () => document.getElementById('waModal').style.display = 'flex';
-        window.closeWaModal = () => document.getElementById('waModal').style.display = 'none';
-
-        onValue(ref(db, 'folders'), (snap) => {
+        onValue(ref(db, 'folders'), (snapshot) => {
             const grid = document.getElementById('foldersGrid');
             grid.innerHTML = "";
-            snap.forEach(child => {
-                grid.innerHTML += `<div class="folder-card" onclick="showVideos('${child.key}', '${child.val().name}')"><i class="fas fa-folder-open"></i><h3>${child.val().name}</h3><p>مشاهدة الدروس</p></div>`;
+            snapshot.forEach((child) => {
+                grid.innerHTML += `
+                <div class="folder-card">
+                    <i class="fas fa-folder-open"></i>
+                    <h3>${child.val().name}</h3>
+                    <div class="btn-group">
+                        <button class="btn-action btn-vid" onclick="showVideos('${child.key}', '${child.val().name}')">الدروس</button>
+                        <button class="btn-action btn-exam" onclick="listExams('${child.key}', '${child.val().name}')">الاختبارات</button>
+                    </div>
+                </div>`;
             });
         });
 
-        window.showVideos = function(id, name) {
+        window.showVideos = (id, name) => {
             document.getElementById('videoArea').style.display = "block";
             document.getElementById('folderTitleName').innerText = name;
             onValue(ref(db, `folders/${id}/videos`), (snap) => {
                 const vGrid = document.getElementById('videosGrid');
                 vGrid.innerHTML = "";
-                snap.forEach(child => {
-                    const v = child.val();
-                    vGrid.innerHTML += `<div class="video-card"><img src="${v.img}"><div class="video-info"><h4>${v.title}</h4><a href="${v.link}" target="_blank" class="start-btn">مشاهدة</a></div></div>`;
+                snap.forEach(v => {
+                    vGrid.innerHTML += `
+                    <div style="background:#fff; border-radius:15px; overflow:hidden; box-shadow:0 5px 10px rgba(0,0,0,0.05);">
+                        <img src="${v.val().img}" style="width:100%">
+                        <h4 style="padding:10px;">${v.val().title}</h4>
+                        <a href="${v.val().link}" target="_blank" style="display:block; background:var(--main); color:white; text-align:center; padding:10px; text-decoration:none;">مشاهدة</a>
+                    </div>`;
                 });
             });
         };
 
-        window.closeVideos = () => document.getElementById('videoArea').style.display = "none";
+        window.listExams = (folderId, folderName) => {
+            document.getElementById('quizListArea').style.display = "block";
+            onValue(ref(db, `quizzes/${folderId}`), (snap) => {
+                const list = document.getElementById('examsList');
+                list.innerHTML = "";
+                if(!snap.exists()) { list.innerHTML = "لا يوجد اختبارات حالياً."; return; }
+                snap.forEach(ex => {
+                    list.innerHTML += `<div class="exam-item" onclick="prepareQuiz('${folderId}', '${ex.key}', '${ex.val().name}')"><span>${ex.val().name}</span><i class="fas fa-chevron-left"></i></div>`;
+                });
+            });
+        };
 
         onValue(ref(db, 'reviews'), (snap) => {
             const grid = document.getElementById('testiGrid');
             grid.innerHTML = "";
-            snap.forEach(child => {
-                grid.innerHTML += `<div class="review-card"><p>“${child.val().text}”</p><h4>- ${child.val().student}</h4></div>`;
+            snap.forEach(c => {
+                grid.innerHTML += `<div class="review-card"><p>“${c.val().text}”</p><h4>- ${c.val().student}</h4></div>`;
             });
         });
 
-        window.sendStuReview = function() {
+        window.sendStuReview = () => {
             const student = document.getElementById('stuName').value;
             const text = document.getElementById('stuText').value;
             if(student && text) {
-                set(push(ref(db, 'reviews')), { student, text }).then(() => { alert("تم الإرسال! ❤️"); location.reload(); });
-            }
+                push(ref(db, 'reviews'), { student, text }).then(() => {
+                    alert("تم إرسال رأيك بنجاح! ❤️");
+                    document.getElementById('stuName').value = "";
+                    document.getElementById('stuText').value = "";
+                });
+            } else { alert("من فضلك املأ البيانات"); }
         };
+
+        window.closeArea = (id) => document.getElementById(id).style.display = "none";
+        window.openWaModal = () => document.getElementById('waModal').style.display = 'flex';
+        window.closeWaModal = () => document.getElementById('waModal').style.display = 'none';
     </script>
 </body>
 </html>
