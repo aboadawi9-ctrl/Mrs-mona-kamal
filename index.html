@@ -13,16 +13,14 @@
 
         header { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.03); position: sticky; top: 0; z-index: 1000; }
         .logo-text { font-weight: 900; color: var(--main); font-size: 1.6rem; letter-spacing: 1px; }
-        .login-btn { border: 2px solid var(--main); color: var(--main); padding: 8px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: 0.3s; }
+        .login-btn { border: 2px solid var(--main); color: var(--main); padding: 8px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
 
         .hero { background: linear-gradient(135deg, var(--main), var(--dark)); color: white; padding: 80px 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; border-radius: 0 0 50px 50px; }
         .hero-content { flex: 1; min-width: 300px; padding-left: 20px; }
-        .hero-content h1 { font-size: 2.8rem; font-weight: 900; line-height: 1.3; margin-bottom: 20px; }
-        .hero-image { flex: 0 0 350px; text-align: center; }
-        .hero-image img { width: 320px; height: 320px; border-radius: 50%; border: 12px solid rgba(255,255,255,0.2); object-fit: cover; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .hero-content h1 { font-size: 2.8rem; font-weight: 900; line-height: 1.3; }
+        .hero-image img { width: 320px; height: 320px; border-radius: 50%; border: 12px solid rgba(255,255,255,0.2); object-fit: cover; }
 
         .features { padding: 80px 5%; text-align: center; }
-        .section-title { font-size: 2.2rem; font-weight: 900; margin-bottom: 50px; color: #222; text-align: center; }
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         .feat-card { background: var(--main); color: #fff; padding: 40px 20px; border-radius: 20px; position: relative; overflow: hidden; }
         .feat-card span { position: absolute; top: 15px; left: 20px; font-size: 3rem; font-weight: 900; opacity: 0.2; }
@@ -30,32 +28,26 @@
         .courses { padding: 50px 5%; background: #f8f9fa; }
         .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .course-card { background: #fff; border-radius: 25px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .course-card img { width: 100%; height: 200px; object-fit: cover; }
         .course-info { padding: 25px; text-align: center; }
         .start-btn { display: block; background: var(--main); color: #fff; padding: 12px; border-radius: 15px; text-decoration: none; font-weight: bold; margin-top: 15px; }
 
-        .reviews { padding: 80px 5%; background: #fff; }
+        .reviews { padding: 80px 5%; background: #fff; text-align: center; }
         .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 40px; }
-        .review-card { background: #fdfdfd; padding: 30px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-top: 4px solid var(--main); }
-        .review-card h4 { color: var(--dark); font-weight: 900; margin-top: 15px; font-size: 1.1rem; }
-
-        .add-review-box { max-width: 600px; margin: 0 auto; background: #f0eeff; padding: 30px; border-radius: 30px; text-align: center; }
+        .review-card { background: #fdfdfd; padding: 30px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-top: 4px solid var(--main); text-align: right; }
+        
+        .add-review-box { max-width: 600px; margin: 0 auto; background: #f0eeff; padding: 30px; border-radius: 30px; }
         .add-review-box input, .add-review-box textarea { width: 100%; padding: 12px; margin: 10px 0; border: none; border-radius: 10px; font-family: 'Cairo'; }
-        .send-btn { background: var(--main); color: white; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1.1rem; }
+        .send-btn { background: var(--main); color: white; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; font-weight: bold; width: 100%; }
 
-        footer { padding: 40px 5%; text-align: center; background: #fff; margin-top: 50px; border-top: 1px solid #eee; }
+        footer { padding: 40px 5%; text-align: center; background: #fff; border-top: 1px solid #eee; }
         .social-links { margin: 15px 0; display: flex; justify-content: center; gap: 20px; }
-        .social-btn { text-decoration: none; font-weight: bold; font-size: 1.1rem; padding: 10px 20px; border-radius: 10px; color: #fff; }
+        .social-btn { text-decoration: none; font-weight: bold; padding: 10px 20px; border-radius: 10px; color: #fff; }
         .fb { background: #1877f2; }
         .wa { background: var(--whatsapp); }
+        .secret-link { color: #f9f9f9; text-decoration: none; font-size: 0.8rem; cursor: pointer; }
 
-        /* هنا ستايل النقطة السرية */
-        .secret-link { color: #f9f9f9; text-decoration: none; font-size: 0.8rem; cursor: pointer; opacity: 0.5; }
-
-        @media (max-width: 992px) {
-            .hero { text-align: center; justify-content: center; }
-            .hero-image { flex: 0 0 100%; margin-bottom: 30px; }
-            .hero-image img { width: 250px; height: 250px; }
-        }
+        @media (max-width: 992px) { .hero { text-align: center; } .hero-image { flex: 0 0 100%; margin-top: 30px; } }
     </style>
 </head>
 <body>
@@ -72,13 +64,11 @@
             <br>
             <a href="#courses" style="background: #fff; color: var(--main); padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 900; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">اشترك الآن !</a>
         </div>
-        <div class="hero-image">
-            <img src="Mona.jpg" alt="Ms. Mona Kamal">
-        </div>
+        <div class="hero-image"><img src="Mona.jpg" alt="Ms. Mona"></div>
     </section>
 
     <section class="features">
-        <h2 class="section-title">ليه تشترك معانا؟</h2>
+        <h2 style="font-size: 2.2rem; font-weight: 900; margin-bottom: 50px;">ليه تشترك معانا؟</h2>
         <div class="features-grid">
             <div class="feat-card"><span>1</span><h3>شرح بسيط ومفهوم</h3></div>
             <div class="feat-card"><span>2</span><h3>فيديوهات توضيحية</h3></div>
@@ -90,12 +80,12 @@
     </section>
 
     <section class="courses" id="courses">
-        <h2 class="section-title">كورساتنا التعليمية</h2>
+        <h2 style="font-size: 2.2rem; text-align: center; margin-bottom: 50px;">كورساتنا التعليمية</h2>
         <div class="course-grid" id="coursesGrid"></div>
     </section>
 
     <section class="reviews" id="reviews">
-        <h2 class="section-title">قالوا عن Ms. Mona Kamal ✨</h2>
+        <h2 style="font-size: 2.2rem; margin-bottom: 50px;">قالوا عن Ms. Mona Kamal ✨</h2>
         <div class="reviews-grid" id="testiGrid"></div>
         <div class="add-review-box">
             <h3>أضف رأيك هنا 👇</h3>
@@ -136,7 +126,15 @@
             grid.innerHTML = "";
             snap.forEach(child => {
                 const c = child.val();
-                grid.innerHTML += `<div class="course-card"><div class="course-info"><h3>${c.title}</h3><p>${c.desc}</p><a href="${c.link}" class="start-btn" target="_blank">ابدأ الآن</a></div></div>`;
+                grid.innerHTML += `
+                    <div class="course-card">
+                        <img src="${c.img}" alt="${c.title}">
+                        <div class="course-info">
+                            <h3>${c.title}</h3>
+                            <p>${c.desc}</p>
+                            <a href="${c.link}" class="start-btn" target="_blank">ابدأ الآن</a>
+                        </div>
+                    </div>`;
             });
         });
 

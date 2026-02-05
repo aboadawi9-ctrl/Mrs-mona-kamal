@@ -9,8 +9,8 @@
         .card { background: white; padding: 25px; border-radius: 15px; max-width: 600px; margin: 20px auto; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo'; }
         button { background: #6c5ce7; color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; }
-        button.delete-btn { background: #ff7675; width: auto; padding: 5px 15px; font-size: 0.8rem; margin-top: 5px; }
-        .list-item { background: #f9f9f9; padding: 10px; border-bottom: 1px solid #eee; margin-top: 10px; text-align: right; display: flex; justify-content: space-between; align-items: center; }
+        button.delete-btn { background: #ff7675; width: auto; padding: 5px 15px; font-size: 0.8rem; }
+        .list-item { background: #f9f9f9; padding: 15px; border-bottom: 1px solid #eee; margin-top: 10px; text-align: right; display: flex; justify-content: space-between; align-items: center; border-radius: 8px; }
         h2 { color: #4834d4; border-bottom: 2px solid #6c5ce7; padding-bottom: 10px; }
         .back-link { display: block; margin-bottom: 20px; color: #6c5ce7; text-decoration: none; font-weight: bold; }
     </style>
@@ -20,19 +20,19 @@
     <a href="index.html" class="back-link">← العودة للموقع الرئيسي</a>
 
     <div class="card">
-        <h2>إضافة كورس جديد</h2>
+        <h2>إضافة كورس جديد بالصورة</h2>
         <input type="text" id="title" placeholder="اسم الكورس">
         <textarea id="desc" rows="2" placeholder="وصف الكورس"></textarea>
-        <input type="text" id="link" placeholder="رابط الكورس">
-        <button onclick="addCourse()">إضافة الكورس</button>
+        <input type="text" id="link" placeholder="رابط الكورس (YouTube أو Telegram)">
+        <input type="text" id="imgUrl" placeholder="رابط صورة الكورس (من Pinterest أو ImgBB)">
+        <button onclick="addCourse()">إضافة الكورس للموقع</button>
         
-        <h3 style="margin-top:30px;">الكورسات الحالية (للحذف)</h3>
+        <h3 style="margin-top:30px;">إدارة الكورسات الحالية</h3>
         <div id="adminCoursesList"></div>
     </div>
 
     <div class="card">
-        <h2>إدارة الآراء</h2>
-        <h3 style="margin-top:10px;">الآراء الحالية</h3>
+        <h2>إدارة آراء الطلاب</h2>
         <div id="adminReviewsList"></div>
     </div>
 
@@ -53,21 +53,18 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // وظيفة الإضافة
         window.addCourse = function() {
             const title = document.getElementById('title').value;
             const desc = document.getElementById('desc').value;
             const link = document.getElementById('link').value;
-            if(title && desc && link) {
-                set(push(ref(db, 'courses')), { title, desc, link });
-                alert("تمت الإضافة!");
-                document.getElementById('title').value = "";
-                document.getElementById('desc').value = "";
-                document.getElementById('link').value = "";
-            }
+            const img = document.getElementById('imgUrl').value;
+
+            if(title && desc && link && img) {
+                set(push(ref(db, 'courses')), { title, desc, link, img })
+                .then(() => { alert("تمت إضافة الكورس بنجاح!"); location.reload(); });
+            } else { alert("يرجى ملء كل الخانات بما فيها رابط الصورة"); }
         };
 
-        // عرض الكورسات مع زر الحذف
         onValue(ref(db, 'courses'), (snap) => {
             const list = document.getElementById('adminCoursesList');
             list.innerHTML = "";
@@ -81,7 +78,6 @@
             });
         });
 
-        // عرض الآراء مع زر الحذف
         onValue(ref(db, 'reviews'), (snap) => {
             const list = document.getElementById('adminReviewsList');
             list.innerHTML = "";
@@ -95,12 +91,9 @@
             });
         });
 
-        // وظيفة الحذف الشاملة
         window.deleteItem = function(path) {
-            if(confirm("هل أنتِ متأكدة من حذف هذا العنصر؟")) {
-                remove(ref(db, path))
-                .then(() => alert("تم الحذف بنجاح"))
-                .catch(() => alert("خطأ في الحذف"));
+            if(confirm("هل أنتِ متأكدة من الحذف؟")) {
+                remove(ref(db, path)).then(() => alert("تم الحذف"));
             }
         };
     </script>
